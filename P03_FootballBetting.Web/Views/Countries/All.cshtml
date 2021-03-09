@@ -1,0 +1,43 @@
+﻿@model IEnumerable<P03_FootballBetting.Web.ViewModels.Countries.AllCountriesViewModel>
+
+@{
+    ViewData["Title"] = "All";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CountryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CountryId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CountryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a class="btn btn-info" asp-action="Create">Create New</a>
+</p>

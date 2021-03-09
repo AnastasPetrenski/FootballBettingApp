@@ -1,0 +1,82 @@
+﻿@model IEnumerable<P03_FootballBetting.Web.ViewModels.Games.AllGamesViewModel>
+
+@{
+    ViewData["Title"] = "All";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeTeam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AwayTeam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeTeamGoals)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AwayTeamGoals)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataTime)
+            </th>
+            <th>
+                <label>Win</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AwayTeamBetRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrawBetRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Result)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTeam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwayTeam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTeamGoals)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwayTeamGoals)
+            </td>
+            <td>
+                @(item.DataTime.ToString("dd/MM/yyyy"))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTeamBetRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwayTeamBetRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrawBetRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result)
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

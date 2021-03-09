@@ -1,0 +1,86 @@
+﻿@model P03_FootballBetting.Web.ViewModels.Games.CreateGameViewModel
+
+    @{
+        ViewData["Title"] = "Create";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewBag.Predict = new SelectList(Model.Predict);
+    }
+
+    <h1>Create Game</h1>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form class="mx-auto half-width" asp-controller="Games" asp-action="Create" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label for="HomeTeamId" class="control-label">HomeTeam</label>
+                    <select for="HomeTeamId" class="form-control" name="HomeTeamId">
+                        @foreach (var item in Model.HomeTeams)
+                        {
+                            <option value=@item.TeamId>@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="AwayTeamId" class="control-label">AwayTeam</label>
+                    <select for="AwayTeamId" class="form-control" name="AwayTeamId">
+                        @foreach (var item in Model.AwayTeams)
+                        {
+                            <option value=@item.TeamId>@item.Name</option>
+                        }
+                    </select>
+                    
+                </div>
+                <div class="form-group">
+                    <label for="HomeTeamGoals" class="control-label">HomeTeamGoals</label>
+                    <input for="HomeTeamGoals" class="form-control" name="HomeTeamGoals"/>
+                </div>
+                <div class="form-group">
+                    <label for="AwayTeamGoals" class="control-label">AwayTeamGoals</label>
+                    <input for="AwayTeamGoals" class="form-control" name="AwayTeamGoals"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateTime" class="control-label">Date</label>
+                    <input asp-for="DateTime" class="form-control" name="DateTime"/>
+                </div>
+                <div class="form-group">
+                    <label for="HomeTeamBetRate" class="control-label">HomeTeamBetRate</label>
+                    <input for="HomeTeamBetRate" class="form-control" name="HomeTeamBetRate"/>
+                </div>
+                <div class="form-group">
+                    <label for="AwayTeamBetRate" class="control-label">AwayTeamBetRate</label>
+                    <input for="AwayTeamBetRate" class="form-control" name="AwayTeamBetRate"/>
+                </div>
+                <div class="form-group">
+                    <label for="DrawBetRate" class="control-label">DrawBetRate</label>
+                    <input for="DrawBetRate" class="form-control" name="DrawBetRate"/>
+                </div>
+                <div class="form-group">
+                    <label for="Result" class="control-label">Result</label>
+                    <select for="Result" class="form-control" name="Result">
+                        @foreach (var item in Model.Predict)
+                        {
+                            <option value=@item>@item</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="Predict" class="control-label">ResultNotMappet</label>
+                    @*How to save choosen value from drop-down list????*@ 
+                        @Html.DropDownList("Predict", (SelectList)ViewBag.Predict, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
