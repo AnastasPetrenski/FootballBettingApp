@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P03_FootballBetting.Data;
 using P03_FootballBetting.Data.Models;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace P03_FootballBetting.Web.Controllers
 {
+    [Authorize]
     public class ColorsController : Controller
     {
         private readonly FootballBettingContext context;

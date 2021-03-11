@@ -8,9 +8,11 @@
 <h1>All</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-success" type="submit" asp-action="Create">Create</a> |
+    <a class="btn btn-info" type="submit" asp-action="Search">Search</a>
 </p>
-<table class="table">
+
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
@@ -29,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.DataTime)
             </th>
             <th>
-                <label>Win</label>
+                Win
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AwayTeamBetRate)
@@ -40,7 +42,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Result)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -72,9 +73,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Result)
-            </td>
-            <td>
-                
             </td>
         </tr>
 }

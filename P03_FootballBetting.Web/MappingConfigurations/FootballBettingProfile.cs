@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using P03_FootballBetting.Data.Models;
-using P03_FootballBetting.Data.Models.Enumerations;
 using P03_FootballBetting.Web.ViewModels.Colors;
 using P03_FootballBetting.Web.ViewModels.Countries;
 using P03_FootballBetting.Web.ViewModels.Games;
@@ -10,15 +9,16 @@ using P03_FootballBetting.Web.ViewModels.Teams;
 using P03_FootballBetting.Web.ViewModels.Towns;
 using P03_FootballBetting.Web.ViewModels.Users;
 using P03_FootballBetting.Web.Common;
-using System;
-using System.Security.Cryptography;
-using System.Text;
 using P03_FootballBetting.Web.ViewModels.Homes;
+using P03_FootballBetting.Data;
+using System.Linq;
 
 namespace P03_FootballBetting.Web.MappingConfigurations
 {
     public class FootballBettingProfile : Profile
     {
+        private readonly FootballBettingContext context = new FootballBettingContext();
+
         public FootballBettingProfile()
         {
             //CreateUser

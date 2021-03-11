@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +35,20 @@ namespace P03_FootballBetting.Web
             //services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = false)
             //    .AddEntityFrameworkStores<FootballBettingContext>();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                 .AddCookie(options =>
+                 {
+                     options.AccessDeniedPath = new PathString("/Index");
+                     options.LoginPath = new PathString("/Home/Loged");
+                     options.LogoutPath = new PathString("/Home/SignOut");
+                 });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromDays(5);
+            });
+
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
 
@@ -49,12 +65,6 @@ namespace P03_FootballBetting.Web
                 options.Cookie.IsEssential = true;
             });
 
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromDays(5);
-                options.LoginPath = "/Account/Login";
-            });
 
         }
 
@@ -71,10 +81,13 @@ namespace P03_FootballBetting.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCookiePolicy();
 
             app.UseAuthentication();
             app.UseAuthorization();

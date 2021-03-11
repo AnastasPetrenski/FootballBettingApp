@@ -1,8 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +26,7 @@ namespace P03_FootballBetting.Web.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly FootballBettingContext context;
         private readonly IMapper mapper;
-       
+
         public HomeController(ILogger<HomeController> logger,
             FootballBettingContext context,
             IMapper mapper)
@@ -32,7 +37,7 @@ namespace P03_FootballBetting.Web.Controllers
         }
 
         public IActionResult Index()
-        {        
+        {
             return this.View();
         }
 
@@ -41,10 +46,27 @@ namespace P03_FootballBetting.Web.Controllers
             return this.View();
         }
 
+        //[Authorize]
         public IActionResult Loged(RegisterConnectionViewModel model)
         {
             var user = this.context.Users.Where(x => x.Password == Sha512Generator.Sha512(model.Password) &&
                                                      x.Username == model.User).FirstOrDefault();
+
+            //var result = this.userManager.Users.Any(x => x.Password == Sha512Generator.Sha512(model.Password));
+
+            //var claims = new List<Claim>
+            //{
+            //    new Claim(ClaimTypes.Email, user.Email),
+            //    //new Claim("FullName", user.FullName),
+            //    //new Claim(ClaimTypes.Role, "Administrator"),
+            //};
+
+            //var claimsIdentity = new ClaimsIdentity(
+            //    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            //var authProperties = new AuthenticationProperties
+            //{
+            //};
 
             if (user != null)
             {
